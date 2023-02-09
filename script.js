@@ -1,61 +1,38 @@
-function goGO() {
+const content = document.getElementById('content');
 
-    var seconds = 00;
-    var tens = 00;
-    var appendTens = document.getElementById("tens")
-    var appendSeconds = document.getElementById("seconds")
-    var buttonStart = document.getElementById('button-start');
-    var buttonStop = document.getElementById('button-stop');
-    var buttonReset = document.getElementById('button-reset');
-    var Interval ;
+const clockDiv = document.createElement('h3');
+content.appendChild(clockDiv);
 
-    buttonStart.onclick = function() {
-        clearInterval(Interval);
-        Interval = setInterval(startTimer, 10);
-    }
-      
-    buttonStop.onclick = function() {
-        clearInterval(Interval);
-    }
-      
-    
-    buttonReset.onclick = function() {
-        clearInterval(Interval);
-        tens = "00";
-        seconds = "00";
-        appendTens.innerHTML = tens;
-        appendSeconds.innerHTML = seconds;
-    }
-      
-       
-      
-    function startTimer () {
-        tens++; 
-        
-        if(tens <= 9){
-          appendTens.innerHTML = "0" + tens;
-        }
-        
-        if (tens > 9){
-          appendTens.innerHTML = tens;
-          
-        } 
-        
-        if (tens > 99) {
-          console.log("seconds");
-          seconds++;
-          appendSeconds.innerHTML = "0" + seconds;
-          tens = 0;
-          appendTens.innerHTML = "0" + 0;
-        }
-        
-        if (seconds > 9){
-          appendSeconds.innerHTML = seconds;
-        }
-      
-    }  
-}
+const startBtn = document.createElement('button');
+content.appendChild(startBtn);
+startBtn.innerHTML = "Start";
 
-window.onload = function () {
-    goGO();
-}
+const stopBtn = document.createElement('button');
+content.appendChild(stopBtn);
+stopBtn.innerHTML = "Stop";
+
+const resetBtn = document.createElement('button');
+content.appendChild(resetBtn);
+resetBtn.innerHTML = "Reset";
+
+var startValue = 0;
+var timer;
+
+clockDiv.innerHTML = startValue;
+
+startBtn.addEventListener('click', () => {
+  timer = setInterval(()=>{
+    clockDiv.innerHTML = startValue;
+    startValue++;
+  }, 1000);
+  
+})
+
+stopBtn.addEventListener('click', ()=>{
+  clearInterval(timer);
+})
+
+resetBtn.addEventListener('click', ()=>{
+  startValue = 0;
+  clockDiv.innerHTML = startValue;
+})
